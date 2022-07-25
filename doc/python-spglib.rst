@@ -654,3 +654,34 @@ An example is shown below::
    # Irreducible k-points
    print("Number of ir-kpoints: %d" % len(np.unique(mapping)))
    print((grid[np.unique(mapping)] + [0.5, 0.5, 0.5]) / mesh)
+
+.. _py_method_get_stabilized_reciprocal_mesh:
+
+``get_stabilized_reciprocal_mesh``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
+
+   mapping, grid = get_stabilized_reciprocal_mesh(mesh, rotations, is_shift=[0, 0, 0], qpoints=[[0,0,0]])
+
+he irreducible k-points are searched from unique k-point mesh grids
+from direct (real space) basis vectors and a set of rotation parts
+of symmetry operations in direct space with one or multiple stabilizers.
+``mesh`` is given by three integers by array and specifies mesh
+numbers along reciprocal primitive axis. ``is_shift`` is given by the
+three integers by array. When ``is_shift`` is set for each reciprocal
+primitive axis, the mesh is shifted along the axis in half of adjacent
+mesh points irrespective of the mesh numbers. When the value is not 0,
+``is_shift`` is set. ``qpoints`` defines the stabilizers in fractional
+coordinates.
+
+``mapping`` and ``grid`` are returned. ``grid`` gives the mesh points in
+fractional coordinates in reciprocal space. ``mapping`` gives mapping to
+the irreducible k-point indices that are obtained by ::
+
+   np.unique(mapping)
+
+Here ``np`` means the numpy module. The grid point is accessed by
+``grid[index]``.
+
+When the search failed, ``None`` is returned.
